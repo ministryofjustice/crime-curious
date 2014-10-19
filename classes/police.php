@@ -53,7 +53,9 @@
 				$lat = $tweet->coordinates->coordinates[1];
 				$lng = $tweet->coordinates->coordinates[0];
 				$new_crimes = $this->get_crimes($lat,$lng);
-				$crimes = array_merge($crimes,$new_crimes);
+				if(is_array($new_crimes)) {
+					$crimes = array_merge($crimes,$new_crimes);
+				}	
 			}
 			return $crimes;
 		}

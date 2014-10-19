@@ -2,13 +2,50 @@
 html, body {
 	padding: 0;
 	margin: 0;
+	font-family: "Open Sans", verdana, sans-serif;
+}
+div {
+	box-sizing: border-box;
 }
 
+/* HEADER */
+header {
+	background-color: #D68400;
+	min-height: 120px;
+	line-height: 30px;
+	padding: 10px 30px;
+	color: #ffffff;
+}
+#user-form-container {
+	width: 100%;
+	background-color: #845200;
+	line-height: 60px;
+	padding: 20px 0;
+}
+#user-form-container form {
+	margin: 0;
+	text-align: center;
+}
+#user-form-container input {
+	width: 90%;
+	height: 40px;
+	font-size: 24px;
+	line-height: 40px;
+	border: none;
+	text-align: left;
+	padding: 10px 5px;
+}
 /* USER INFO */
 #user-info {
 	width: 30%;
 	margin: 20px 5%;
+	padding: 5px;
 	float: left;
+	background-color: #72048D;
+	color: #ffffff;
+}
+#user-info h2 {
+	margin: 0;
 }
 
 /* MATCHED CRIME LIST */
@@ -16,6 +53,15 @@ html, body {
 	width: 50%;
 	margin: 20px 5%;
 	float: left;
+}
+
+article {
+	border: 1px solid #cccccc;
+	overflow: hidden;
+	padding: 5px;
+	margin: 5px 0;
+	background-color: #d60000;
+	color: #ffffff;
 }
 
 article .field-title, article .field-value {
