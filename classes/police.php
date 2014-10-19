@@ -32,6 +32,31 @@
 		public function last_update_cached() {
 			return $this->get_content("last-update.txt");
 		}
+
+		private function get_crimes($lat,$lng) {
+			$date = date('Y-m', strtotime($this->get_content("last-update.txt")));
+			$ch = curl_init();
+
+			$url = "http://data.police.uk/api/crimes-at-location?date=$date&lat=$lat&lng=$lng";
+
+			curl_setopt($ch,CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+
+			$results = json_decode(curl_exec($ch));
+
+			return $results;
+		}
+
+		public function match_crimes($month_tweets) {
+			$crimes = array();
+			foreach($month_tweets as $tweet) {
+				$lat = $tweet->coordinates->coordinates[1];
+				$lng = $tweet->coordinates->coordinates[0];
+				$new_crimes = $this->get_crimes($lat,$lng);
+				$crimes = array_merge($crimes,$new_crimes);
+			}
+			return $crimes;
+		}
 	}
 
 ?>

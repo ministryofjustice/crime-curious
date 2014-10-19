@@ -37,7 +37,11 @@
 
 			curl_close($ch);
 
-			return $oauth_results->access_token;
+			if (isset($oauth_results->access_token)) {
+				return $oauth_results->access_token;
+			} else {
+				print_r($oauth_results);
+			}
 		}
 
 		private function get_tweets($twitter_user,$max = 0) {
@@ -73,18 +77,21 @@
 			$returned_tweets = array();
 			$tweets = $this->get_tweets($twitter_user);
 
+
 			// While tweet still in date range
 			$count = count($tweets)-1;
 			$index = 0;
-			while(strtotime($tweets[$count]->created_at)>strtotime($last_day." 23:59:59 +0000")) {
+
+			while($count>0 && strtotime($tweets[$count]->created_at)>strtotime($last_day." 23:59:59 +0000")) {
 				$last_tweet_id = $tweets[$count]->id;
 				$tweets = $this->get_tweets($twitter_user,$last_tweet_id-1);
+				$count = count($tweets)-1;
 			}
 			while (strtotime($tweets[$index]->created_at)>strtotime($first_day." 00:00:00 +0000")) {
 				$cur_tweet = $tweets[$index];
 				// If tweet not later than last day of month
-				if (strtotime($cur_tweet->created_at)<=strtotime($last_day." 23:59:59 +0000")) {
-				// Copy tweet to new array
+				if (strtotime($cur_tweet->created_at)<=strtotime($last_day." 23:59:59 +0000") && isset($cur_tweet->coordinates) && $cur_tweet->coordinates) {
+				// Copy tweet to new array)
 					$returned_tweets[] = $cur_tweet;
 				}
 				$last_tweet_id = $cur_tweet->id;
@@ -92,7 +99,7 @@
 					$tweets = $this->get_tweets($twitter_user,$last_tweet_id-1);
 					$count = count($tweets)-1;
 					if(strtotime($tweets[$count]->created_at)>strtotime($last_day." 23:59:59 +0000")) {
-						$index==$count;
+						$index=$count;
 					} else {
 						$index=0;
 					}
