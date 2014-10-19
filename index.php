@@ -5,6 +5,8 @@
 		<link rel="stylesheet" href="assets/css/style.css">
 		<link rel="stylesheet" href="assets/css/colours.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	</head>
 
 	<body>
@@ -50,6 +52,10 @@
 			if($month_tweets['tweets']) {
 				$crimes_matched = $police_api->match_crimes($month_tweets['tweets']);
 				$total_crimes = count($crimes_matched);
+				$tweets_analysed = $month_tweets['total'];
+			} else {
+				$tweets_analysed = 0;
+				$total_crimes = 0;
 			}
 		?>
 		<div id="user-info">
@@ -63,7 +69,7 @@
 			</div>
 			<div class="info-line">
 				<h2>Tweets Analysed</h2>
-				<div><?php echo $month_tweets['total']; ?></div>
+				<div><?php echo $tweets_analysed; ?></div>
 			</div>
 			<div class="info-line">
 				<h2>Tweets with Geocoding</h2>
@@ -75,7 +81,13 @@
 			</div>
 			<div class="danger-quotient">
 				<h2>DANGER QUOTIENT</h2>
-				<?php echo round(((($total_crimes/count($month_tweets['tweets']))*$month_tweets['total']/cal_days_in_month(CAL_GREGORIAN,date("m",strtotime($police_api->last_update_cached())),date("Y",strtotime($police_api->last_update_cached()))))*100)); ?>
+				<?php 
+					if(count($month_tweets['tweets'])>0) {
+						echo round(((($total_crimes/count($month_tweets['tweets']))*$month_tweets['total']/cal_days_in_month(CAL_GREGORIAN,date("m",strtotime($police_api->last_update_cached())),date("Y",strtotime($police_api->last_update_cached()))))*100));
+					} else {
+						echo "N/A";
+					}
+				?>
 
 			</div>
 		</div>

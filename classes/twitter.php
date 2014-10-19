@@ -77,6 +77,9 @@
 			$returned_tweets = array();
 			$tweets = $this->get_tweets($twitter_user);
 
+			if (count($tweets)<1) {
+				return array("tweets"=>array());
+			}
 
 			// While tweet still in date range
 			$count = count($tweets)-1;
