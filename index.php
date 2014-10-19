@@ -5,13 +5,16 @@
 	ini_set('error_reporting', E_ALL);
 	ini_set('display_errors',1);
 
-	// Load Twitter class
-	require('/classes/twitter.php');
+	// Load classes
+	require('classes/twitter.php');	// Twitter API calls
+	require('classes/police.php');		// UK Police data API calls
 
 	$username = $_GET['username'];
 
-	$api = new twitter_api();
+	$twitter_api = new twitter_api();
 
-	$api->get_tweets($username);
+	$month_tweets = $twitter_api->get_tweets_month($username);
+
+	print_r($month_tweets);
 
 ?>
