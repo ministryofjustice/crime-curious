@@ -64,6 +64,16 @@ header h4 {
 #user-info h2 {
 	margin: 0;
 }
+.danger-quotient {
+	font-size: 180px;
+	text-align: center;
+	padding: 10px 0;
+	color: #9839AF;
+	font-weight: bold;
+}
+.danger-quotient h2 {
+	font-size: 40px;
+}
 
 /* MATCHED CRIME LIST */
 #matched-crimes {
@@ -89,7 +99,7 @@ article .field-title, article .field-value {
 
 article .field-title {
 	width: 30%;
-	font-weight: bold;
+	font-weight: bold;`
 }
 
 article .field-value {

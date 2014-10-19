@@ -46,6 +46,11 @@
 			$police_api = new police_api();
 
 			$month_tweets = $twitter_api->get_tweets_month($username);
+
+			if($month_tweets['tweets']) {
+				$crimes_matched = $police_api->match_crimes($month_tweets['tweets']);
+				$total_crimes = count($crimes_matched);
+			}
 		?>
 		<div id="user-info">
 			<div class="info-line">
@@ -64,6 +69,15 @@
 				<h2>Tweets with Geocoding</h2>
 				<div><?php echo count($month_tweets['tweets']); ?></div>
 			</div>
+			<div class="info-line">
+				<h2>Crimes Matched</h2>
+				<div><?php echo $total_crimes; ?></div>
+			</div>
+			<div class="danger-quotient">
+				<h2>DANGER QUOTIENT</h2>
+				<?php echo round(((($total_crimes/count($month_tweets['tweets']))*$month_tweets['total']/cal_days_in_month(CAL_GREGORIAN,date("m",strtotime($police_api->last_update_cached())),date("Y",strtotime($police_api->last_update_cached()))))*100)); ?>
+
+			</div>
 		</div>
 		<div id="matched-crimes">
 
@@ -76,6 +90,7 @@
 					<div class="field-title category">Category</div><div class="field-value category"><?php echo $crime->category; ?></div>
 					<div class="field-title location">Location</div><div class="field-value location"><?php echo $crime->location->street->name; ?></div>
 					<div class="field-title status">Location</div><div class="field-value status"><?php echo $crime->outcome_status->category; ?></div>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d9374.12023630866!2d<?php echo $crime->location->longitude; ?>!3d<?php echo $crime->location->latitude; ?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1413703105819" height="300" frameborder="0" style="border:0;width:100%;"></iframe>
 				</article>
 				<?php }
 			} ?>
