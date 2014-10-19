@@ -16,7 +16,7 @@
 		</div>
 
 		<header>
-			<h1>Crime Curious</h1>
+			<a href="./"><h1>Crime Curious</h1></a>
 			<h4>For TechCrunch Disrupt London 2014</h4>
 		</header>
 
@@ -35,7 +35,7 @@
 		ini_set('error_reporting', E_ALL);
 		ini_set('display_errors',1);
 
-		if(isset($_GET['username'])) {
+		if(isset($_GET['username']) && strlen($_GET['username'])>0) {
 			// Load classes
 			require('classes/twitter.php');	// Twitter API calls
 			require('classes/police.php');	// UK Police data API calls
@@ -99,7 +99,7 @@
 
 		<?php } else { echo "<h2 class='aligncenter'>Please enter a Twitter username above</h2>"; } ?>
 
-	</main>
+		</main>
 
 	<footer>
 
