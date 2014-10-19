@@ -103,7 +103,7 @@
 					<!--<?php print_r($crime); ?>-->
 					<div class="field-title category">Category</div><div class="field-value category"><?php echo $crime->category; ?></div>
 					<div class="field-title location">Location</div><div class="field-value location"><?php echo $crime->location->street->name; ?></div>
-					<div class="field-title status">Location</div><div class="field-value status"><?php echo $crime->outcome_status->category; ?></div>
+					<div class="field-title status">Status</div><div class="field-value status"><?php echo (isset($crime->outcome_status)?$crime->outcome_status->category:""); ?></div>
 					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d9374.12023630866!2d<?php echo $crime->location->longitude; ?>!3d<?php echo $crime->location->latitude; ?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1413703105819" height="300" frameborder="0" style="border:0;width:100%;"></iframe>
 				</article>
 				<?php }
