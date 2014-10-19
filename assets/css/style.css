@@ -66,6 +66,17 @@ header h4 {
 #user-info h2 {
 	margin: 0;
 }
+#user-info h3 {
+	padding: 10px;
+}
+#user-info h3 a {
+	color: #d60000;
+	font-weight: bold;
+	text-decoration: none;
+}
+#user-info h3 a:hover {
+	text-decoration: underline;
+}
 .danger-quotient {
 	font-size: 180px;
 	text-align: center;

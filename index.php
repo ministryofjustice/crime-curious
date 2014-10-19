@@ -88,8 +88,10 @@
 						echo "N/A";
 					}
 				?>
-
 			</div>
+			<?php if($total_crimes>0) {
+				echo "<h3>If you are concerned about any of the crimes featured on this page please contact your local police station, or call <a href='https://crimestoppers-uk.org/'>Crimestoppers</a> on 0800 555 111.</h3>";
+			} ?>
 		</div>
 		<div id="matched-crimes">
 
