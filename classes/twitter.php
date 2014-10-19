@@ -81,6 +81,7 @@
 			// While tweet still in date range
 			$count = count($tweets)-1;
 			$index = 0;
+			$total = 0;
 
 			while($count>0 && strtotime($tweets[$count]->created_at)>strtotime($last_day." 23:59:59 +0000")) {
 				$last_tweet_id = $tweets[$count]->id;
@@ -90,9 +91,12 @@
 			while (strtotime($tweets[$index]->created_at)>strtotime($first_day." 00:00:00 +0000")) {
 				$cur_tweet = $tweets[$index];
 				// If tweet not later than last day of month
-				if (strtotime($cur_tweet->created_at)<=strtotime($last_day." 23:59:59 +0000") && isset($cur_tweet->coordinates) && $cur_tweet->coordinates) {
-				// Copy tweet to new array)
-					$returned_tweets[] = $cur_tweet;
+				if (strtotime($cur_tweet->created_at)<=strtotime($last_day." 23:59:59 +0000")) {
+					$total++;
+					if (isset($cur_tweet->coordinates) && $cur_tweet->coordinates) {
+						// Copy tweet to new array)
+						$returned_tweets[] = $cur_tweet;
+					}
 				}
 				$last_tweet_id = $cur_tweet->id;
 				if($index==$count) {
@@ -108,7 +112,7 @@
 			}
 			// End while
 
-		return($returned_tweets);
+		return(array("total"=>$total,"tweets"=>$returned_tweets));
 		}
 	}
 

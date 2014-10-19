@@ -25,9 +25,9 @@
 	<?php
 
 		// For debugging
-		// error_reporting(E_ALL);
-		// ini_set('error_reporting', E_ALL);
-		// ini_set('display_errors',1);
+		error_reporting(E_ALL);
+		ini_set('error_reporting', E_ALL);
+		ini_set('display_errors',1);
 
 		if(isset($_GET['username'])) {
 			// Load classes
@@ -40,29 +40,43 @@
 			$police_api = new police_api();
 
 			$month_tweets = $twitter_api->get_tweets_month($username);
-		}
 		?>
 		<div id="user-info">
-			<h2>Twitter user</h2>
-			<div><?php echo $username; ?></div>
-			<h2>Date</h2>
-			<div><?php echo $police_api->last_update_cached(); ?></div>
+			<div class="info-line">
+				<h2>Twitter User</h2>
+				<div><?php echo $username; ?></div>
+			</div>
+			<div class="info-line">
+				<h2>Period</h2>
+				<div><?php echo date("F Y",strtotime($police_api->last_update_cached())); ?></div>
+			</div>
+			<div class="info-line">
+				<h2>Tweets Analysed</h2>
+				<div><?php echo $month_tweets['total']; ?></div>
+			</div>
+			<div class="info-line">
+				<h2>Tweets with Geocoding</h2>
+				<div><?php echo count($month_tweets['tweets']); ?></div>
+			</div>
 		</div>
 		<div id="matched-crimes">
 
 			<?php
-			if($month_tweets) {
-				$crimes_matched = $police_api->match_crimes($month_tweets);
+			if($month_tweets['tweets']) {
+				$crimes_matched = $police_api->match_crimes($month_tweets['tweets']);
 				foreach($crimes_matched as $crime) { ?>
 				<article>
 					<!--<?php print_r($crime); ?>-->
 					<div class="field-title category">Category</div><div class="field-value category"><?php echo $crime->category; ?></div>
 					<div class="field-title location">Location</div><div class="field-value location"><?php echo $crime->location->street->name; ?></div>
+					<div class="field-title status">Location</div><div class="field-value status"><?php echo $crime->outcome_status->category; ?></div>
 				</article>
 				<?php }
 			} ?>
 
 		</div>
+
+		<?php } else { echo "<h2 class='aligncenter'>Please enter a Twitter username above</h2>"; } ?>
 
 	</main>
 

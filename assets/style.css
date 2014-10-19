@@ -7,14 +7,25 @@ html, body {
 div {
 	box-sizing: border-box;
 }
+.aligncenter {
+	text-align: center;
+}
 
 /* HEADER */
 header {
 	background-color: #D68400;
 	min-height: 120px;
 	line-height: 30px;
-	padding: 10px 30px;
+	padding: 10px 40px;
 	color: #ffffff;
+}
+header h1 {
+	font-size: 96px;
+	margin: 10px 0 0;
+	line-height: 90px;
+}
+header h4 {
+	margin: 0 0 20px 365px;
 }
 #user-form-container {
 	width: 100%;
@@ -44,6 +55,9 @@ header {
 	background-color: #72048D;
 	color: #ffffff;
 }
+#user-info .info-line {
+	padding: 10px 5px;
+}
 #user-info h2 {
 	margin: 0;
 }
@@ -56,7 +70,6 @@ header {
 }
 
 article {
-	border: 1px solid #cccccc;
 	overflow: hidden;
 	padding: 5px;
 	margin: 5px 0;
