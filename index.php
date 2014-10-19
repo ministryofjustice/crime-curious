@@ -2,12 +2,18 @@
 
 	<head>
 		<title>Crime Curious<?php if(isset($_GET['username']) && strlen($_GET['username'])>0) echo " for ".$_GET['username']; ?></title>
-		<link rel="stylesheet" href="assets/style.css">
-		<link rel="stylesheet" href="assets/colours.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets/css/colours.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
 	</head>
 
 	<body>
+
+		<div id="spinner-container" class="hidden">
+			<div class="spinner">
+				<img src="assets/img/spinner.gif">
+			</div>
+		</div>
 
 		<header>
 			<h1>Crime Curious</h1>
@@ -15,7 +21,7 @@
 		</header>
 
 		<div id="user-form-container">
-			<form id="user=form" name="user-form" method="GET">
+			<form id="user=form" name="user-form" method="GET" onsubmit="document.getElementById('spinner-container').className='';">
 				<input id="username" name="username" placeholder="Twitter username" value="<?php echo $_GET['username']; ?>">
 			</form>
 		</div>
