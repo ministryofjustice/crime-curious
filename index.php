@@ -24,7 +24,7 @@
 
 		<div id="user-form-container">
 			<form id="user=form" name="user-form" method="GET" onsubmit="document.getElementById('spinner-container').className='';">
-				<input id="username" name="username" placeholder="Twitter username" value="<?php echo $_GET['username']; ?>">
+				<input id="username" name="username" placeholder="Twitter username" value="<?php echo $twitter_user = str_replace("@", "", $_GET['username']); ?>">
 			</form>
 		</div>
 
@@ -42,7 +42,7 @@
 			require('classes/twitter.php');	// Twitter API calls
 			require('classes/police.php');	// UK Police data API calls
 
-			$username = $_GET['username'];
+			$username = $twitter_user = str_replace("@", "", $_GET['username']);
 
 			$twitter_api = new twitter_api();
 			$police_api = new police_api();
@@ -118,6 +118,23 @@
 	<footer>
 
 	</footer>
+
+	<script type="text/javascript">
+		window.onload = function() {
+		  document.getElementById("username").focus();
+		};
+	</script>
+
+	<!-- Google Analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-41000299-2', 'auto');
+	  ga('send', 'pageview');
+	</script>
 
 	</body>
 

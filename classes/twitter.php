@@ -45,6 +45,7 @@
 		}
 
 		private function get_tweets($twitter_user,$max = 0) {
+			$twitter_user = str_replace("@", "", $twitter_user);
 			$tweet_url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=$twitter_user&count=200";
 			if($max!==0) {
 				$tweet_url.="&max_id=$max";
@@ -91,7 +92,7 @@
 				$tweets = $this->get_tweets($twitter_user,$last_tweet_id-1);
 				$count = count($tweets)-1;
 			}
-			while (strtotime($tweets[$index]->created_at)>strtotime($first_day." 00:00:00 +0000")) {
+			while ($count>0 && strtotime($tweets[$index]->created_at)>strtotime($first_day." 00:00:00 +0000")) {
 				$cur_tweet = $tweets[$index];
 				// If tweet not later than last day of month
 				if (strtotime($cur_tweet->created_at)<=strtotime($last_day." 23:59:59 +0000")) {
